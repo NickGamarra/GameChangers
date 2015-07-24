@@ -1,3 +1,8 @@
+<?php
+require_once "php/db_connect.php";
+require_once "php/functions.php";
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -33,7 +38,7 @@
             <li><a href="index.html">Home</a> </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.html">Cape Town</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.php">Cape Town</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.html">Johannesburg</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.html">Durban</a></li>
                 </ul>
@@ -52,6 +57,8 @@
     </div>
   </div>
 </nav>
+    
+    
 <header class="hidden-phone inner"></header>
 <div class="container" id="main">
   <div class="row">
@@ -72,16 +79,15 @@
     <div class="span6">
       <h2 class="text-center">Attractions/Activities</h2>
       <ul class="thumbnails">
-        <li class="span3"><h3>Name<br><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/1" alt=""></a></li>
-        <li class="span3"><h3>Name<br><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/2" alt=""></a></li>
-        <li class="span3"><h3>Name<br><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/3" alt=""></a></li>
-        <li class="span3"><h3>Name<br><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/4" alt=""></a></li>
+        <?php echo getAttractions($db); ?>
       </ul>
     </div>
   </div>
   <div class="row">
   </div>
 </div>
+    
+    
 <section class="location hidden-phone">
 <script type="text/javascript">
  $(document).ready(function($){
@@ -155,3 +161,5 @@
 </div>
 </body>
 </html>
+
+<?php $db->close(); ?>

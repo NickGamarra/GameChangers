@@ -117,3 +117,9 @@ h2.hotel-name .label, h2.hotel-name .badge {
 h3{
     text-align: center;
 }
+textarea{
+    width: 100%;
+}
+#rateIt{
+    float: right;   
+}
