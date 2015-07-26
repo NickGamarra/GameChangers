@@ -1,16 +1,24 @@
+<?php
+require_once "php/db_connect.php";
+require_once "php/functions.php";
+
+$category = 'Social';
+?>
+
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>USA2SA</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css" />
 
-<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/jquery.js"></script><script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script><script type="text/javascript" src="ScriptLibrary/dmxGoogleMaps.js"></script>
 </head>
 
 <body>
@@ -39,15 +47,15 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Social.php">Social</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Adventure</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Landmarks</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Social.php?param=All">Social</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Adventure.php?param=All">Adventure</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Landmarks.php?param=All">Landmarks</a></li>
                 </ul>
             </li>
             <li><a href="#">Login</a></li>
           </ul>
         </div>
-      </div>
+ a     </div>
     </div>
   </div>
 </nav>
@@ -56,15 +64,15 @@
 <div class="container" id="main">
   <div class="row">
     <div class="span12">
-      <h1 class="text-left">Social</h1>
+      <h1 class="text-left"><?php echo $category ?></h1>
     </div>
   </div>
   <div class="row" style="margin-bottom:30px;">
     <div class="span3">
       <select name="select2" id="select2" onchange="location = this.options[this.selectedIndex].value;">
-        <option value = "">Select Location</option>
+        <option value = "Social.php">Select Location</option>
         <option value = "?param=All">All Locations</option>
-        <option value = "?param=Cape">Cape Town</option>
+        <option value = "?param=CapeTown">Cape Town</option>
         <option value = "?param=Durban">Durban</option>
         <option value = "?param=Johannesburg">Johannesburg</option>
     </select></div>
@@ -72,62 +80,12 @@
     </div>
   </div>
   <div class="row">
-  <div class="span4 offer">
-    	<div class="offer-wrap">
-   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
-        <span class="label label-success">
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        </span>
-        <div class="padding">
-        <h2 class="text-center text-info">Hotel Name</h2>
-          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
-        </div>
-        </div>
-    </div>
-    <div class="span4 offer">
-    	<div class="offer-wrap">
-   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
-        <span class="label label-success">
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star-empty icon-white"></i>
-        <i class="icon-white icon-star-empty"></i>
-        </span>
-        <div class="btn-group">
-          <button class="btn btn-small btn-success" type="button">Book Now</button>
-            <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
-          </div>
-        <div class="padding">
-        <h2 class="text-center text-info">Hotel Name</h2>
-          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
-        </div>
-        </div>
-    </div>
-    <div class="span4 offer">
-    	<div class="offer-wrap">
-   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
-        <span class="label label-success">
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star-empty icon-white"></i>
-        <i class="icon-white icon-star-empty"></i>
-        </span>
-        <div class="btn-group">
-          <button class="btn btn-small btn-success" type="button">Book Now</button>
-            <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
-          </div>
-        <div class="padding">
-        <h2 class="text-center text-info">Hotel Name</h2>
-          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
-        </div>
-        </div>
-    </div>
+      <?php 
+        if(isset($_GET['param'])){
+            $param=$_GET['param'];
+            echo getEvents($db, $category, $param);
+        }
+      ?>
   </div>
 </div>
 <section class="location hidden-phone">
@@ -199,3 +157,5 @@
 </div>
 </body>
 </html>
+
+<?php $db->close(); ?>

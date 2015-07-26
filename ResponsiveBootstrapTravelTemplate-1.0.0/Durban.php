@@ -1,16 +1,23 @@
+<?php
+require_once "php/db_connect.php";
+require_once "php/functions.php";
+$location = 'Durban';
+?>
+
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>USA2SA</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css" />
 
-<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/jquery.js"></script><script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script><script type="text/javascript" src="ScriptLibrary/dmxGoogleMaps.js"></script>
 </head>
 
 <body>
@@ -29,19 +36,19 @@
         <div class="nav-collapse collapse"> 
           <!-- .nav, .navbar-search, .navbar-form, etc -->
           <ul class="nav">
-            <li class="active"> <a href="index.html">Home</a> </li>
+            <li><a href="index.html">Home</a> </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.php">Cape Town</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.html">Johannesburg</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.html">Durban</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.php">Johannesburg</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.php">Durban</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Social.php">Social</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Adventure</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Landmarks</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Social.php?param=All">Social</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Adventure.php?param=All">Adventure</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Landmarks.php?param=All">Landmarks</a></li>
                 </ul>
             </li>
             <li><a href="#">Login</a></li>
@@ -51,87 +58,41 @@
     </div>
   </div>
 </nav>
-    
 <header class="hidden-phone inner"></header>
 <div class="container" id="main">
   <div class="row">
     <div class="span12">
-      <h1 class="text-left">Social</h1>
-    </div>
-  </div>
-  <div class="row" style="margin-bottom:30px;">
-    <div class="span3">
-      <select name="select2" id="select2" onchange="location = this.options[this.selectedIndex].value;">
-        <option value = "">Select Location</option>
-        <option value = "?param=All">All Locations</option>
-        <option value = "?param=Cape">Cape Town</option>
-        <option value = "?param=Durban">Durban</option>
-        <option value = "?param=Johannesburg">Johannesburg</option>
-    </select></div>
-    <div class="span6">
+      <h1 class="text-left">Durban</h1>
+      <p class="lead text-left">Durban, a coastal city in eastern South Africa’s KwaZulu-Natal province, is known for its African, Indian and colonial influences. The Golden Mile beachfront is a popular destination for surfers, joggers, sunbathers and water-sports enthusiasts. Refurbished for soccer’s 2010 World Cup, the seafront promenade starts at uShaka Marine World, a huge theme park with an aquarium, and ends by the futuristic Moses Mabhida stadium.</p>
     </div>
   </div>
   <div class="row">
-  <div class="span4 offer">
-    	<div class="offer-wrap">
-   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
-        <span class="label label-success">
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        </span>
-        <div class="padding">
-        <h2 class="text-center text-info">Hotel Name</h2>
-          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
-        </div>
+   <div class="span6">
+        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
+       <hr>
+        <?php echo getComments($db, $location); ?>
+      <div class="form-group">
+          <br>
+          <textarea class="form-control" rows="5" placeholder="500 Characters Max" id="commentArea"></textarea>
+          <button type="button" class="btn btn-primary" id = "commentButton">Comment</button>
         </div>
     </div>
-    <div class="span4 offer">
-    	<div class="offer-wrap">
-   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
-        <span class="label label-success">
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star-empty icon-white"></i>
-        <i class="icon-white icon-star-empty"></i>
-        </span>
-        <div class="btn-group">
-          <button class="btn btn-small btn-success" type="button">Book Now</button>
-            <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
-          </div>
-        <div class="padding">
-        <h2 class="text-center text-info">Hotel Name</h2>
-          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
-        </div>
-        </div>
+    <div class="span6">
+      <h2 class="text-center">Attractions/Activities</h2>
+      <ul class="thumbnails">
+        <?php echo getAttractions($db,$location); ?>
+      </ul>
     </div>
-    <div class="span4 offer">
-    	<div class="offer-wrap">
-   	    <img src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
-        <span class="label label-success">
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star-empty icon-white"></i>
-        <i class="icon-white icon-star-empty"></i>
-        </span>
-        <div class="btn-group">
-          <button class="btn btn-small btn-success" type="button">Book Now</button>
-            <button class="btn btn-small" type="button"><em class="icon-info-sign"></em></button>
-          </div>
-        <div class="padding">
-        <h2 class="text-center text-info">Hotel Name</h2>
-          <h4 class="text-center">Lorem ipsum dolor sit amet</h4>
-        </div>
-        </div>
-    </div>
+  </div>
+  <div class="row">
   </div>
 </div>
 <section class="location hidden-phone">
- 
+<script type="text/javascript">
+ $(document).ready(function($){
+       $('header').css('background', 'url(./Pictures/Durban.jpg)');
+     });
+</script>
 </section>
 <footer class="hidden-phone">
   <div class="container">
@@ -199,3 +160,5 @@
 </div>
 </body>
 </html>
+
+<?php $db->close(); ?>

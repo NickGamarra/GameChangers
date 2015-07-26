@@ -1,6 +1,7 @@
 <?php
 require_once "php/db_connect.php";
 require_once "php/functions.php";
+$location = 'CapeTown';
 ?>
 
 <!doctype html>
@@ -39,15 +40,15 @@ require_once "php/functions.php";
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.php">Cape Town</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.html">Johannesburg</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.html">Durban</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.php">Johannesburg</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.php">Durban</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Social</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Adventure</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Landmarks</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Social.php?param=All">Social</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Adventure.php?param=All">Adventure</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Landmarks.php?param=All">Landmarks</a></li>
                 </ul>
             </li>
             <li><a href="#">Login</a></li>
@@ -69,7 +70,9 @@ require_once "php/functions.php";
   </div>
   <div class="row">
     <div class="span6">
-        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
+        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <?php echo rating($db, $location); ?><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
+        <hr>
+          <?php echo getComments($db, $location); ?>
       <div class="form-group">
           <br>
           <textarea class="form-control" rows="5" placeholder="500 Characters Max" id="commentArea"></textarea>
@@ -79,7 +82,7 @@ require_once "php/functions.php";
     <div class="span6">
       <h2 class="text-center">Attractions/Activities</h2>
       <ul class="thumbnails">
-        <?php echo getAttractions($db); ?>
+        <?php echo getAttractions($db, $location); ?>
       </ul>
     </div>
   </div>

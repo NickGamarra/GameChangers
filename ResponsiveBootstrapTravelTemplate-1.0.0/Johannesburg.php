@@ -1,3 +1,9 @@
+<?php
+require_once "php/db_connect.php";
+require_once "php/functions.php";
+ $location = 'Johannesburg';
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -34,15 +40,15 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.php">Cape Town</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.html">Johannesburg</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.html">Durban</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.php">Johannesburg</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.php">Durban</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Social</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Adventure</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Landmarks</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Social.php?param=All">Social</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Adventure.php?param=All">Adventure</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Landmarks.php?param=All">Landmarks</a></li>
                 </ul>
             </li>
             <li><a href="#">Login</a></li>
@@ -57,23 +63,24 @@
   <div class="row">
     <div class="span12">
       <h1 class="text-left">Johannesburg</h1>
-      <p class="lead text-error text-left">Subtitle</p>
+      <p class="lead text-left">Johannesburg, South Africa's biggest city and capital of its inland Gauteng province, began as a 19th-century gold-mining settlement. It's known for Soweto township, a sprawling jumble of African workers’ houses that was once home to Nelson Mandela and Desmond Tutu. Mandela’s former residence is now the Nelson Mandela National Museum. To the northeast, Herman Ekstein Park encompasses a boating lake and Johannesburg Zoo.</p>
     </div>
   </div>
   <div class="row">
     <div class="span6">
-      <h2 class="hotel-name"> Comments <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h2>
-      <table class="table table-hover table-striped">
-        
-      </table>
+        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
+        <hr>
+         <?php echo getComments($db, $location); ?>
+      <div class="form-group">
+          <br>
+          <textarea class="form-control" rows="5" placeholder="500 Characters Max" id="commentArea"></textarea>
+          <button type="button" class="btn btn-primary" id = "commentButton">Comment</button>
+        </div>
     </div>
     <div class="span6">
       <h2 class="text-center">Attractions/Activities</h2>
       <ul class="thumbnails">
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/1" alt=""></a></li>
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/2" alt=""></a></li>
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/3" alt=""></a></li>
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/4" alt=""></a></li>
+        <?php echo getAttractions($db,$location); ?>
       </ul>
     </div>
   </div>
@@ -153,3 +160,5 @@
 </div>
 </body>
 </html>
+
+<?php $db->close(); ?>

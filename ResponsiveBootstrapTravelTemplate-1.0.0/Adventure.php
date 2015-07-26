@@ -1,3 +1,10 @@
+<?php
+require_once "php/db_connect.php";
+require_once "php/functions.php";
+
+$category = 'Adventure';
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -30,7 +37,7 @@
         <div class="nav-collapse collapse"> 
           <!-- .nav, .navbar-search, .navbar-form, etc -->
           <ul class="nav">
-            <li><a href="index.html">Home</a> </li>
+            <li class="active"> <a href="index.html">Home</a> </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.php">Cape Town</a></li>
@@ -40,52 +47,49 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Social</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Adventure</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Landmarks</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Social.php?param=All">Social</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Adventure.php?param=All">Adventure</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Landmarks.php?param=All">Landmarks</a></li>
                 </ul>
             </li>
             <li><a href="#">Login</a></li>
           </ul>
         </div>
-      </div>
+ a     </div>
     </div>
   </div>
 </nav>
+    
 <header class="hidden-phone inner"></header>
 <div class="container" id="main">
   <div class="row">
     <div class="span12">
-      <h1 class="text-left">Durban</h1>
-      <p class="lead text-error text-left">Subtitle</p>
+      <h1 class="text-left"><?php echo $category ?></h1>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom:30px;">
+    <div class="span3">
+      <select name="select2" id="select2" onchange="location = this.options[this.selectedIndex].value;">
+        <option value = "Social.php">Select Location</option>
+        <option value = "?param=All">All Locations</option>
+        <option value = "?param=CapeTown">Cape Town</option>
+        <option value = "?param=Durban">Durban</option>
+        <option value = "?param=Johannesburg">Johannesburg</option>
+    </select></div>
+    <div class="span6">
     </div>
   </div>
   <div class="row">
-    <div class="span6">
-      <h2 class="hotel-name"> Comments <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h2>
-      <table class="table table-hover table-striped">
-        
-      </table>
-    </div>
-    <div class="span6">
-      <h2 class="text-center">Attractions/Activities</h2>
-      <ul class="thumbnails">
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/1" alt=""></a></li>
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/2" alt=""></a></li>
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/3" alt=""></a></li>
-        <li class="span3"><h3>Name <span class="label label-inverse"><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-star icon-white"></i><i class="icon-white icon-star-empty"></i><i class="icon-star-empty icon-white"></i></span></h3><a href="#" class="thumbnail"> <img src="http://lorempixel.com/800/480/nature/4" alt=""></a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
+      <?php 
+        if(isset($_GET['param'])){
+            $param=$_GET['param'];
+            echo getEvents($db, $category, $param);
+        }
+      ?>
   </div>
 </div>
 <section class="location hidden-phone">
-<script type="text/javascript">
- $(document).ready(function($){
-       $('header').css('background', 'url(./Pictures/Durban.jpg)');
-     });
-</script>
+ 
 </section>
 <footer class="hidden-phone">
   <div class="container">
@@ -153,3 +157,5 @@
 </div>
 </body>
 </html>
+
+<?php $db->close(); ?>

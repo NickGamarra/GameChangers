@@ -110,9 +110,6 @@ h2.hotel-name .label, h2.hotel-name .badge {
 	border-top:1px solid #eee;
 }
 
-
-
-
 /* CHANGES MADE */
 h3{
     text-align: center;
@@ -121,5 +118,22 @@ textarea{
     width: 100%;
 }
 #rateIt{
+    float: right;   
+}
+.panel{
+    margin-left: 65px;
+    margin-top: 30px;
+}
+.img-circle {
+    border-radius: 50%;
+    float: left
+}
+.username{
+    font-size: 18px;
+    font-family: sans-serif;
+    font-style: oblique;
+    color: darkblue;
+}
+.time{
     float: right;   
 }
