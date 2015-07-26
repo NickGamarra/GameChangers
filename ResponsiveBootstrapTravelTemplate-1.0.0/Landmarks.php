@@ -55,7 +55,7 @@ $category = 'Landmarks';
             <li><a href="#">Login</a></li>
           </ul>
         </div>
- a     </div>
+      </div>
     </div>
   </div>
 </nav>

@@ -1,9 +1,3 @@
-<?php
-require_once "php/db_connect.php";
-require_once "php/functions.php";
-$location = 'Durban';
-?>
-
 <!doctype html>
 <html>
 <head>
@@ -36,12 +30,12 @@ $location = 'Durban';
         <div class="nav-collapse collapse"> 
           <!-- .nav, .navbar-search, .navbar-form, etc -->
           <ul class="nav">
-            <li><a href="index.html">Home</a> </li>
+            <li class="active"> <a href="index.html">Home</a> </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.php">Cape Town</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.php">Johannesburg</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.php">Durban</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.html">Johannesburg</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.html">Durban</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
@@ -58,42 +52,53 @@ $location = 'Durban';
     </div>
   </div>
 </nav>
-<header class="hidden-phone inner"></header>
+
 <div class="container" id="main">
   <div class="row">
     <div class="span12">
-      <h1 class="text-left">Durban</h1>
-      <p class="lead text-left">Durban, a coastal city in eastern South Africa’s KwaZulu-Natal province, is known for its African, Indian and colonial influences. The Golden Mile beachfront is a popular destination for surfers, joggers, sunbathers and water-sports enthusiasts. Refurbished for soccer’s 2010 World Cup, the seafront promenade starts at uShaka Marine World, a huge theme park with an aquarium, and ends by the futuristic Moses Mabhida stadium.</p>
+      <h1 class="text-left">Attraction Name</h1>
+      <p class="lead text-left"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><button type="button" class="btn btn-success" id = "rateIt">Rate it</button></p>
     </div>
   </div>
   <div class="row">
-   <div class="span6">
-        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <?php echo rating($db, $location); ?><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
-       <hr>
-        <?php echo getComments($db, $location); ?>
+      <div class="span5 offer">
+        <div class="offer-wrap">
+            <img id = "Attraction" src="http://www.placehold.it/800x450/ddd/bbb&text=Image" alt="140x140" />
+        </div>
+      </div>
+      <div class="span7">
+          <h2 class="text-left">Description:</h2>
+          <p class="lead text-left">Something About the said location. Description will be grabbed from the Database table 'USA2SA Atrractions'</p>
+          <div class = "info">
+              <h3 class="text-left">Location:</h3>
+              <p class="lead text-left">777 Glades Rd <br>Boca Raton, FL 33461 <br> (561)123-4567</p>
+          </div>
+          <div class = "info">
+              <h3 class="text-left">Hours:</h3>
+              <p class="lead text-left">Monday : 5 - 10<br>Tuesday : 5- 10<br>Wednesday: 5 - 8<br> thursday:<br>friday:<br>saturday:<br>sunday:</p>
+          </div>
+          <h3 class="text-left"><a hred = "#">Visit Website</a></h3>
+      </div>
+  </div>
+    <hr>
+  <div class="row">
+      <div class="span12">
+        <h2 class="hotel-name"> Comments</h2><br>
+        <img src="./Profile/default.jpg" class="img-circle" width="60">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <span class = "username">Nicholas Gamarra</span><span class = "time">1/2/30</span><br>Testing out a comment on this webpage. something something something just typing for the added text.
+          </div>
+        </div>
       <div class="form-group">
           <br>
           <textarea class="form-control" rows="5" placeholder="500 Characters Max" id="commentArea"></textarea>
           <button type="button" class="btn btn-primary" id = "commentButton">Comment</button>
         </div>
-    </div>
-    <div class="span6">
-      <h2 class="text-center">Attractions/Activities</h2>
-      <ul class="thumbnails">
-        <?php echo getAttractions($db,$location); ?>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
+      </div>
   </div>
 </div>
-<section class="location hidden-phone">
-<script type="text/javascript">
- $(document).ready(function($){
-       $('header').css('background', 'url(./Pictures/Durban.jpg)');
-     });
-</script>
-</section>
+
 <footer class="hidden-phone">
   <div class="container">
     <div class="row">
@@ -160,5 +165,3 @@ $location = 'Durban';
 </div>
 </body>
 </html>
-
-<?php $db->close(); ?>

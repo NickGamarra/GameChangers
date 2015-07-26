@@ -68,7 +68,7 @@ require_once "php/functions.php";
   </div>
   <div class="row">
     <div class="span6">
-        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
+        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <?php echo rating($db, $location); ?><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
         <hr>
          <?php echo getComments($db, $location); ?>
       <div class="form-group">

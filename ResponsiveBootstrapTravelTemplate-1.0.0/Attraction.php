@@ -1,7 +1,9 @@
 <?php
 require_once "php/db_connect.php";
 require_once "php/functions.php";
-$location = 'Durban';
+if(isset($_GET['attraction'])){
+    $attraction = sanitizeString($db, $_GET['attraction']);
+}
 ?>
 
 <!doctype html>
@@ -36,12 +38,12 @@ $location = 'Durban';
         <div class="nav-collapse collapse"> 
           <!-- .nav, .navbar-search, .navbar-form, etc -->
           <ul class="nav">
-            <li><a href="index.html">Home</a> </li>
+            <li class="active"> <a href="index.html">Home</a> </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Locations</a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="./Cape%20Town.php">Cape Town</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.php">Johannesburg</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.php">Durban</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Johannesburg.html">Johannesburg</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="./Durban.html">Durban</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Catergories</a>
@@ -58,42 +60,31 @@ $location = 'Durban';
     </div>
   </div>
 </nav>
-<header class="hidden-phone inner"></header>
+
 <div class="container" id="main">
   <div class="row">
     <div class="span12">
-      <h1 class="text-left">Durban</h1>
-      <p class="lead text-left">Durban, a coastal city in eastern South Africa’s KwaZulu-Natal province, is known for its African, Indian and colonial influences. The Golden Mile beachfront is a popular destination for surfers, joggers, sunbathers and water-sports enthusiasts. Refurbished for soccer’s 2010 World Cup, the seafront promenade starts at uShaka Marine World, a huge theme park with an aquarium, and ends by the futuristic Moses Mabhida stadium.</p>
+      <h1 class="text-left"><?php echo $attraction ?></h1>
+      <p class="lead text-left"><?php echo rating($db, $attraction); ?></i><button type="button" class="btn btn-success" id = "rateIt">Rate it</button></p>
     </div>
   </div>
   <div class="row">
-   <div class="span6">
-        <h2 class="hotel-name"> Comments<br></h2>Overall Rating: <?php echo rating($db, $location); ?><button type="button" class="btn btn-success" id = "rateIt">Rate it</button>
-       <hr>
-        <?php echo getComments($db, $location); ?>
+      <?php echo displayAttraction($db, $attraction); ?>
+  </div>
+    <hr>
+  <div class="row">
+      <div class="span12">
+        <h2 class="hotel-name"> Comments</h2><br>
+        <?php echo getComments($db, $attraction); ?>
       <div class="form-group">
           <br>
           <textarea class="form-control" rows="5" placeholder="500 Characters Max" id="commentArea"></textarea>
           <button type="button" class="btn btn-primary" id = "commentButton">Comment</button>
         </div>
-    </div>
-    <div class="span6">
-      <h2 class="text-center">Attractions/Activities</h2>
-      <ul class="thumbnails">
-        <?php echo getAttractions($db,$location); ?>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
+      </div>
   </div>
 </div>
-<section class="location hidden-phone">
-<script type="text/javascript">
- $(document).ready(function($){
-       $('header').css('background', 'url(./Pictures/Durban.jpg)');
-     });
-</script>
-</section>
+
 <footer class="hidden-phone">
   <div class="container">
     <div class="row">

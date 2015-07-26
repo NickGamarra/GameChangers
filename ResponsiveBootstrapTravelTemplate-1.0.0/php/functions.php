@@ -19,7 +19,8 @@ function getAttractions($_db, $location)
     $output = '';
     while($row = $result->fetch_assoc())
     {
-        $output = $output . '<li class="span3"><h3>' . $row['Name'] . '<br><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></h3><a href="#" class="thumbnail"> <img src="' . $server_root . 'Pictures/' . $row['Image'] . '" alt=""></a></li>' ;
+	   $location = $row['Name'];
+        $output = $output . '<li class="span3"><h3>' . $row['Name'] . '<br>' . rating($_db, $location) .'</h3><a href="#" class="thumbnail"> <img src="' . $server_root . 'Pictures/' . $row['Image'] . '" alt=""></a></li>' ;
     }
     
     return $output;
@@ -48,10 +49,10 @@ function getComments($_db, $location)
 function getEvents($_db, $category, $param)
 {
     if($param == "All"){
-        $query = "SELECT `Name`, `Location`, `Description`, `Image`, `Type` FROM `USA2SA Attractions` WHERE `Type` = '$category'";
+        $query = "SELECT `Name`, `Description`, `Image` FROM `USA2SA Attractions` WHERE `Type` = '$category'";
     }
     else{
-        $query = "SELECT `Name`, `Location`, `Description`, `Image`, `Type` FROM `USA2SA Attractions` WHERE `Type` = '$category' AND `Location` = '$param'";
+        $query = "SELECT `Name`, `Description`, `Image` FROM `USA2SA Attractions` WHERE `Type` = '$category' AND `Location` = '$param'";
     }
     
     if(!$result = $_db->query($query))
@@ -62,16 +63,13 @@ function getEvents($_db, $category, $param)
     $output = '';
     while($row = $result->fetch_assoc())
     {
+        $param = $row['Name'];
         $output = $output . '  <div class="span4 offer">
     	<div class="offer-wrap">
-   	    <a href = "#"><img src="' . $server_root . 'Pictures/' . $row['Image'] .'" /></a>
-        <span class="label label-success">
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        <i class="icon-star icon-white"></i>
-        </span>
+   	    <a href = "./Attraction.php?attraction=' . $row['Name'] .'"><img src="' . $server_root . 'Pictures/' . $row['Image'] .'" /></a>
+        <span class="label label-success">'
+        . rating($_db, $param) .
+        '</span>
         <div class="padding">
         <h2 class="text-center text-info">' . $row['Name'] .'</h2>
           <h4 class="text-center">Description</h4>
@@ -104,6 +102,41 @@ function rating($_db, $place){
     {
         $output = $output .'<i class="icon-star-empty"></i>';   
     }
+    return $output;
+}
+
+function displayAttraction($_db, $attraction)
+{
+    $query = "SELECT `Name`, `Description`, `Image`, `Address`, `Hours`, `Link` FROM `USA2SA Attractions` WHERE `Name` = '$attraction'";
+    
+    if(!$result = $_db->query($query))
+    {
+        die('There was an error running the query [' . $_db->error . ']');
+    }
+    
+    $output = '';
+    while($row = $result->fetch_assoc())
+    {
+        $output = $output . '<div class="span5 offer">
+        <div class="offer-wrap">
+            <img id = "Attraction" src="' . $server_root . 'Pictures/' . $row['Image'] . '" alt="140x140" />
+        </div>
+      </div>
+      <div class="span7">
+          <h2 class="text-left">Description:</h2>
+          <p class="lead text-left">' . $row['Description'] .'</p>
+          <div class = "info">
+          <h3 class="text-left">Location:</h3>
+          <p class="lead text-left">' . $row['Address'] .'</p>
+          </div>
+          <div class = "info">
+          <h3 class="text-left">Hours:</h3>
+          <p class="lead text-left">' . $row['Hours'] .'</p>
+          </div>
+          <h3 class="text-left"><a href = "http://' . $row['Link'] .'">Visit Website</a></h3>
+      </div>' ;
+    }
+    
     return $output;
 }
 ?>

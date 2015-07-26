@@ -137,3 +137,7 @@ textarea{
 .time{
     float: right;   
 }
+.info{
+    width: 50%;
+    float: left;
+}
